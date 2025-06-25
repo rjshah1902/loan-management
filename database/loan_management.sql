@@ -69,11 +69,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `contact`, `password`, `user_type`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Rahul Shah', 'admin@admin.com', '7898335057', '$2y$10$Ce6kOhlZjBlNiYynRdyqo.Mo26qqXixV/fDFhMPY6EZiKtiHjfKE2', 'admin', 1, '2025-06-25 23:37:36', '2025-06-26 00:11:32'),
-(2, 'Rahul Shah', 'rjshah1902@gmail.com', '7898335057', '$2y$10$Oeu5lMWu0oKLOteiJO7rD./W.QBqShbWy0wawrl380T7vi6zLo6Sq', 'user', 1, '2025-06-25 23:54:02', '2025-06-26 00:11:29'),
-(3, 'Rahul Shah', 'rjshah1901@gmail.com', '7898335057', '$2y$10$.5c1qpcUTeJkqss2XY1hQe720USbp3GYjTTsY2l4UstDfRjtC6Zp.', 'user', 1, '2025-06-25 23:56:26', '2025-06-25 23:56:26'),
-(4, 'Rahul Shah', 'rjshah1900@gmail.com', '7898335057', '$2y$10$ReJ7bo81JDl1ZElfoyJZ6OuGd/SmOELSeDDNIL87tmRgexBuIS2Lq', 'user', 1, '2025-06-25 23:57:41', '2025-06-25 23:57:41'),
-(5, 'Rahul Shah', 'rjshah1903@gmail.com', '7898335057', '$2y$10$VEMfBx8MCyVA/dIwchZZ0eZdFk3t9aPwh1eMW/oXFPeUISaeSv3R6', 'user', 1, '2025-06-25 23:58:04', '2025-06-25 23:58:04');
+(1, 'Rahul Shah', 'admin@admin.com', '7898335051', '$2y$10$Ce6kOhlZjBlNiYynRdyqo.Mo26qqXixV/fDFhMPY6EZiKtiHjfKE2', 'admin', 1, '2025-06-25 23:37:36', '2025-06-26 00:11:32'),
+(2, 'Rahul Shah', 'rjshah1902@gmail.com', '7898335057', '$2y$10$Oeu5lMWu0oKLOteiJO7rD./W.QBqShbWy0wawrl380T7vi6zLo6Sq', 'user', 1, '2025-06-25 23:54:02', '2025-06-26 00:11:29');
 
 --
 -- Indexes for dumped tables
