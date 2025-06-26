@@ -16,7 +16,7 @@
     </div>
 <?php } ?>
 
-<?php if (validation_errors()){ ?>
+<?php if(validation_errors()){ ?>
     <style>
         .alert-danger p{
             margin: 0;

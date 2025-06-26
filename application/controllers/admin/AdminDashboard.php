@@ -30,20 +30,4 @@ class AdminDashboard extends CI_Controller{
 
         $this->load->view('pages/admin/main', $data);
     }
-    
-
-    public function loanRequest(){
-
-        $data['page_name'] = "pages/admin/loan-request/index";
-
-        $data['page_title'] = "Manage Loan Request";
-
-        $data['current_page'] = "loan-request";
-
-		$where = array('status'=>1);
-
-        $data['loanRequest'] = $this->loanRequest->getAll($where);
-
-        $this->load->view('pages/admin/main', $data);
-    }
 }

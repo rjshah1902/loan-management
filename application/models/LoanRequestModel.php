@@ -21,7 +21,7 @@ class LoanRequestModel extends CI_Model{
     public function getAll($where){
     
         $this->db->select($this->table.'.*, users.name, users.email, users.contact');
-        $this->db->from('loan_request');
+        $this->db->from($this->table);
         $this->db->join($this->userTable, $this->userTable.'.id = '.$this->table.'.user_id');
 
         $result = $this->db->get()->result();
@@ -32,7 +32,11 @@ class LoanRequestModel extends CI_Model{
 
     public function getSingle($where){
     
-        $result = $this->db->where($where)->get($this->table)->row();
+        $this->db->select($this->table.'.*, users.name, users.email, users.contact');
+        $this->db->from($this->table);
+        $this->db->join($this->userTable, $this->userTable.'.id = '.$this->table.'.user_id');
+
+        $result = $this->db->get()->row();
         
         return $result;
     }

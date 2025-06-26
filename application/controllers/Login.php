@@ -21,14 +21,14 @@ class Login extends CI_Controller{
 
     public function login(){
         
-        $this->load->library('form_validation');
-
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
 
         if ($this->form_validation->run() === FALSE) {
             
+            redirect(base_url());
+
         } else {
             
             $email = $this->input->post('email');

@@ -1,5 +1,8 @@
 <div class="container-fluid py-2">
     <div class="row">
+        <div class="col-md-12">
+            <?php require APPPATH.'views/layout/alert.php'; ?>
+        </div>
         <div class="col-12">
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -23,7 +26,15 @@
                             </thead>
                             <tbody>
                                 <?php $count = 1;
-                                foreach($loanRequest as $lr){ ?>
+                                foreach($loanRequest as $lr){
+                                    $editUrl = base_url('admin/loan-request/edit/'.$lr->id);
+                                    $deleteUrl = base_url('admin/loan-request/delete/'.$lr->id);
+                                    $statusColor = "bg-gradient-info";
+                                    if($lr->request_status == 'approved'){
+                                        $statusColor = "bg-gradient-success";
+                                     }else if($lr->request_status == 'rejected'){
+                                        $statusColor = "bg-gradient-danger";
+                                     } ?>
                                     <tr>
                                         <td><?= $count++; ?></td>
                                         <td><?= $lr->name; ?></td>
@@ -31,7 +42,7 @@
                                             <?= $lr->email; ?> <br>
                                             <?= $lr->contact; ?>
                                         </td>
-                                        <td> <?= round($lr->loan_amount); ?></td>
+                                        <td>₹<?= round($lr->loan_amount); ?></td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">
                                                 <?= date('d M, Y', strtotime($lr->created_at)); ?><br>
@@ -39,15 +50,15 @@
                                             </span>
                                         </td>
                                         <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">
+                                            <span class="badge badge-sm <?= $statusColor; ?>">
                                                 <?= ucfirst($lr->request_status); ?>
                                             </span>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="btn btn-warning btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="<?= $editUrl; ?>" class="btn btn-warning btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
                                                 Edit
                                             </a>
-                                            <a href="javascript:;" class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="javascript:void(0);" onclick="deleteData('<?= $deleteUrl; ?>')"  class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
                                                 Delete
                                             </a>
                                         </td>

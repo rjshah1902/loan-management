@@ -25,7 +25,6 @@ class Register extends CI_Controller{
 
     public function register()
     {
-        $this->load->library('form_validation');
 
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
        

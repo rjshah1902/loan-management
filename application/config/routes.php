@@ -64,4 +64,7 @@ $route['user/dashboard'] = 'user/UserDashboard';
 /* All Routes For The Admin */
 $route['admin/dashboard'] = 'admin/AdminDashboard';
 
-$route['admin/loan-request'] = 'admin/AdminDashboard/loanRequest';
+$route['admin/loan-request'] = 'admin/LoanRequest';
+$route['admin/loan-request/edit/(:any)'] = 'admin/LoanRequest/edit/$1';
+$route['admin/loan-request/updte/(:any)'] = 'admin/LoanRequest/updte/$1';
+$route['admin/loan-request/delete/(:any)'] = 'admin/LoanRequest/delete/$1';
