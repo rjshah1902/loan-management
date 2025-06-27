@@ -58,7 +58,8 @@ $route['register'] = 'Register';
 
 /* All Routes For The User */
 $route['user/dashboard'] = 'user/UserDashboard';
-
+$route['user/loan-request'] = 'user/LoanRequest/applyForLoan';
+$route['user/request-list'] = 'user/LoanRequest/list';
 
 
 /* All Routes For The Admin */
@@ -66,5 +67,5 @@ $route['admin/dashboard'] = 'admin/AdminDashboard';
 
 $route['admin/loan-request'] = 'admin/LoanRequest';
 $route['admin/loan-request/edit/(:any)'] = 'admin/LoanRequest/edit/$1';
-$route['admin/loan-request/updte/(:any)'] = 'admin/LoanRequest/updte/$1';
+$route['admin/loan-request/update/(:any)'] = 'admin/LoanRequest/update/$1';
 $route['admin/loan-request/delete/(:any)'] = 'admin/LoanRequest/delete/$1';

@@ -17,12 +17,34 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link  <?= ($current_page == 'loan-request')? 'active bg-gradient-dark text-white' : 'text-dark' ?>" href="<?= base_url('admin/loan-request') ?>">
-            <i class="material-symbols-rounded opacity-5">table_view</i>
-            <span class="nav-link-text ms-1">Loan Request</span>
-          </a>
-        </li>
+        <?php if($this->session->userdata('user_type') === 'admin'){ ?>
+          <li class="nav-item">
+            <a class="nav-link  <?= ($current_page == 'users')? 'active bg-gradient-dark text-white' : 'text-dark' ?>" href="<?= base_url('admin/users') ?>">
+              <i class="material-symbols-rounded opacity-5">table_view</i>
+              <span class="nav-link-text ms-1">Manage Users</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  <?= ($current_page == 'loan-request')? 'active bg-gradient-dark text-white' : 'text-dark' ?>" href="<?= base_url('admin/loan-request') ?>">
+              <i class="material-symbols-rounded opacity-5">table_view</i>
+              <span class="nav-link-text ms-1">Loan Request</span>
+            </a>
+          </li>
+        <?php } else{ ?>
+          <li class="nav-item">
+            <a class="nav-link  <?= ($current_page == 'loan-request')? 'active bg-gradient-dark text-white' : 'text-dark' ?>" href="<?= base_url('user/loan-request') ?>">
+              <i class="material-symbols-rounded opacity-5">table_view</i>
+              <span class="nav-link-text ms-1">Apply Loan</span>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link  <?= ($current_page == 'request-list')? 'active bg-gradient-dark text-white' : 'text-dark' ?>" href="<?= base_url('user/request-list') ?>">
+              <i class="material-symbols-rounded opacity-5">table_view</i>
+              <span class="nav-link-text ms-1">Loan Requests</span>
+            </a>
+          </li>
+        <?php } ?>
       </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">

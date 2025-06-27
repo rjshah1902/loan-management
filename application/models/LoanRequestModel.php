@@ -24,7 +24,7 @@ class LoanRequestModel extends CI_Model{
         $this->db->from($this->table);
         $this->db->join($this->userTable, $this->userTable.'.id = '.$this->table.'.user_id');
 
-        $result = $this->db->get()->result();
+        $result = $this->db->where($where)->order_by('id','desc')->get()->result();
         
         return $result;
     }

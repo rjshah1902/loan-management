@@ -11,28 +11,6 @@
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
-                    <form action="" method="get">
-                        <div class="row p-3">
-                            <div class="col-md-4">
-                                <div class="input-group input-group-outline">
-                                    <select name="request_status" class="form-control form-select">
-                                        <option value="" selected disabled> -- Select Loan Status -- </option>
-                                        <option value="pending" <?= ($selectedStatus == 'pending') ? 'selected':'' ?> >Pending</option>
-                                        <option value="approved" <?= ($selectedStatus == 'approved') ? 'selected':'' ?> >Approved</option>
-                                        <option value="rejected" <?= ($selectedStatus == 'rejected') ? 'selected':'' ?> >Rejected</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Search
-                                </button>
-                                <a href="<?= base_url('admin/loan-request'); ?>" class="btn btn-warning">
-                                    Reset
-                                </a>
-                            </div>
-                        </div>
-                    </form>
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0 text-center">
                             <thead>
@@ -43,7 +21,6 @@
                                     <th>Amount</th>
                                     <th>Requested At</th>
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,14 +53,6 @@
                                                 <span class="badge badge-sm <?= $statusColor; ?>">
                                                     <?= ucfirst($lr->request_status); ?>
                                                 </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="<?= $editUrl; ?>" class="btn btn-warning btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
-                                                <a href="javascript:void(0);" onclick="deleteData('<?= $deleteUrl; ?>')"  class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
-                                                    Delete
-                                                </a>
                                             </td>
                                         </tr>
                                     <?php } 

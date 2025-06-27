@@ -65,7 +65,7 @@
             <?php if($loanRequest->request_status == 'pending'){ ?>
             <div class="card">
                 <div class="card-body">
-                    <form action="<?= base_url('admin/loan-request/updte/'.$loanRequest->id); ?>" method="post">
+                    <form action="<?= base_url('admin/loan-request/update/'.$loanRequest->id); ?>" method="post">
                         <div class="row">
                             <div class="col-md-4">
                                 <label for="">Request Status</label>
@@ -80,7 +80,7 @@
                             <div class="col-md-6">
                                 <label for="">Request Remark</label>
                                 <div class="input-group input-group-outline">
-                                <input type="text" class="form-control" name="remark" />
+                                    <input type="text" class="form-control" name="remark" />
                                 </div>
                             </div>
                             <div class="col-md-2 mt-3">

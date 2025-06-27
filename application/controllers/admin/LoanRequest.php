@@ -22,9 +22,17 @@ class LoanRequest extends CI_Controller{
 
         $data['current_page'] = "loan-request";
 
-		$where = array('status'=>1);
+		$where = array('loan_request.status'=>1);
+
+        $requestStatus = $this->input->get('request_status');
+
+        if(isset($requestStatus)){
+            $where += array('loan_request.request_status'=>$requestStatus);
+        }
 
         $data['loanRequest'] = $this->loanRequest->getAll($where);
+        
+        $data['selectedStatus'] = $requestStatus;
 
         $this->load->view('pages/admin/main', $data);
     }
@@ -46,16 +54,16 @@ class LoanRequest extends CI_Controller{
     }
     
 
-    public function updte($requestId){
+    public function update($requestId){
 
-        $request_status = $this->input->post('request_status');
+        $requestStatus = $this->input->post('request_status');
         
         $remark = $this->input->post('remark');
 
         $where = array('id'=>$requestId);
 
         $updateData = [
-                        'request_status'=>$request_status,
+                        'request_status'=>$requestStatus,
                         'remark'=>$remark,
                     ];
 
