@@ -1,3 +1,4 @@
+<?php if(!empty($loanRequest)){ ?>
 <?php $statusColor = "bg-gradient-info";
     if($loanRequest->request_status == 'approved'){
         $statusColor = "bg-gradient-success";
@@ -62,49 +63,6 @@
                 </div>
             </div>
 
-            <?php if($loanRequest->request_status == 'pending'){ ?>
-            <div class="card">
-                <div class="card-body">
-                    <form action="<?= base_url('admin/loan-request/update/'.$loanRequest->id); ?>" method="post">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label for="">Request Status</label>
-                                <div class="input-group input-group-outline">
-                                    <select name="request_status" class="form-control form-select">
-                                        <option value="pending" <?= ($loanRequest->request_status == 'pending') ? 'selected':'' ?> >Pending</option>
-                                        <option value="approved" <?= ($loanRequest->request_status == 'approved') ? 'selected':'' ?> >Approved</option>
-                                        <option value="rejected" <?= ($loanRequest->request_status == 'rejected') ? 'selected':'' ?> >Rejected</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Loan Rate of Interest</label>
-                                <div class="input-group input-group-outline">
-                                    <input type="text" class="form-control" name="interest" value="<?= $loanRequest->interest; ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Date of Start Repayment</label>
-                                <div class="input-group input-group-outline">
-                                    <input type="date" class="form-control" name="loan_start" min="<?= date('Y-m-d', strtotime("+1 month")); ?>" />
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="">Request Remark</label>
-                                <div class="input-group input-group-outline">
-                                    <textarea class="form-control" name="remark"  rows="4"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mt-3">
-                                <button type="submit" class="btn btn-primary mt-3">
-                                    Save Remark
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <?php } ?>
 
             <?php if(count($loanTenure) > 0){ ?>
                 <div class="card mt-5">
@@ -123,6 +81,7 @@
                                     <th>Interest Amount</th>
                                     <th>Total Amount</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -146,6 +105,17 @@
                                                     <?= ucfirst($lt->payment_status); ?>
                                                 </span>
                                             </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <?php   if($lt->payment_status != 'paid'){ ?>
+                                                    <a href="<?= base_url('user/mark-as-paid/'.$lt->id); ?>" class="btn btn-primary btn-sm">
+                                                            Mark As Paid
+                                                    </a>
+                                                <?php } else{ ?>
+                                                    <a href="javascript:void(0)" class="btn btn-secondary">
+                                                        Already Paid
+                                                    </a>
+                                                <?php } ?>
+                                            </td>
                                         </tr>
                                 <?php } } ?>
                             </tbody>
@@ -156,3 +126,4 @@
         </div>
     </div>
 </div>
+<?php } ?>

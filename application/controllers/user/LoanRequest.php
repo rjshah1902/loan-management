@@ -6,7 +6,9 @@ class LoanRequest extends CI_Controller{
         parent::__construct();
         
         $this->load->model('LoanRequestModel', 'loanRequest');
-
+        $this->load->model('LoanTenureModel', 'loanTenure');
+        $this->load->library('user_agent');
+        
         if($this->session->userdata('logged_in') !== true){
             redirect(base_url().'login');
         }
@@ -82,6 +84,45 @@ class LoanRequest extends CI_Controller{
                 redirect(base_url().'user/loan-request');
             }
         }
+    }
+    
+    
 
+    public function details(){
+
+        $data['page_name'] = "pages/user/loan-request/details";
+
+        $data['page_title'] = "Manage Loan Request";
+
+        $data['current_page'] = "request-list";
+
+        $requestId = $this->input->get('request_id');
+
+		$where = array('loan_request.status'=>1, 'loan_request.id'=>$requestId);
+
+        $data['loanRequest'] = $this->loanRequest->getSingle($where);
+
+		$where2 = array('status'=>1, 'loan_request_id'=>$requestId);
+
+        $data['loanTenure'] = $this->loanTenure->getAll($where2);
+
+        $this->load->view('pages/user/main', $data);
+    }
+
+    public function markAsPaid($tenureId)
+    {
+        $updateData = ['payment_status' => 'paid'];
+
+        $where = ['id'=>$tenureId];
+            
+        $update = $this->loanTenure->update($where, $updateData);
+
+        if ($update) {
+            $this->session->set_flashdata('success_message', 'Payment marked as paid successfully.');
+        } else {
+            $this->session->set_flashdata('error_message', 'Failed to update payment status.');
+        }
+
+        redirect($this->agent->referrer());
     }
 }

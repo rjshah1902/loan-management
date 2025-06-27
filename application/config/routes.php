@@ -60,6 +60,8 @@ $route['register'] = 'Register';
 $route['user/dashboard'] = 'user/UserDashboard';
 $route['user/loan-request'] = 'user/LoanRequest/applyForLoan';
 $route['user/request-list'] = 'user/LoanRequest/list';
+$route['user/request-details'] = 'user/LoanRequest/details';
+$route['user/mark-as-paid/(:any)'] = 'user/LoanRequest/markAsPaid/$1';
 
 
 /* All Routes For The Admin */

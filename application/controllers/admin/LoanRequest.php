@@ -6,6 +6,7 @@ class LoanRequest extends CI_Controller{
         parent::__construct();
         
         $this->load->model('LoanRequestModel', 'loanRequest');
+        $this->load->model('LoanTenureModel', 'loanTenure');
 
         if($this->session->userdata('logged_in') !== true){
             redirect(base_url().'login');
@@ -46,37 +47,93 @@ class LoanRequest extends CI_Controller{
 
         $data['current_page'] = "loan-request";
 
-		$where = array('status'=>1, 'id'=>$requestId);
+		$where = array('loan_request.status'=>1, 'loan_request.id'=>$requestId);
 
         $data['loanRequest'] = $this->loanRequest->getSingle($where);
+
+		$where2 = array('status'=>1, 'loan_request_id'=>$requestId);
+
+        $data['loanTenure'] = $this->loanTenure->getAll($where2);
 
         $this->load->view('pages/admin/main', $data);
     }
     
 
-    public function update($requestId){
+    public function update($requestId) 
+    {
+        $where = array('loan_request.id' => $requestId);
 
         $requestStatus = $this->input->post('request_status');
-        
+        $interestRate = $this->input->post('interest');
         $remark = $this->input->post('remark');
-
-        $where = array('id'=>$requestId);
-
+        $loanStartDate = $this->input->post('loan_start');
+        
+        if($requestStatus == 'approved'){
+            if (!isset($loanStartDate) || $loanStartDate == "") {
+                $this->session->set_flashdata('error_message', 'Please Select Repayment Date');
+                redirect(base_url()."admin/loan-request/edit/".$requestId);
+            }
+        }
+        
         $updateData = [
-                        'request_status'=>$requestStatus,
-                        'remark'=>$remark,
-                    ];
+            'request_status' => $requestStatus,
+            'interest' => $interestRate,
+            'remark' => $remark,
+        ];
 
         $result = $this->loanRequest->update($where, $updateData);
 
         if ($result) {
+
+            if($requestStatus == 'approved'){
+            
+                $loanRequest = $this->loanRequest->getSingle($where);
+
+                $tenure = (int)$loanRequest->tenure;
+                $loanAmount = (float)$loanRequest->loan_amount;
+                $userId = $loanRequest->user_id;
+
+                $monthlyInterestRate = ((float)$interestRate) / 100 / 12;
+                $baseAmount = round($loanAmount / $tenure, 2);
+
+                $tenureData = [];
+
+                for ($i = 0; $i < $tenure; $i++) {
+                    $paymentDate = date('Y-m-d', strtotime("+$i month", strtotime($loanStartDate)));
+                    $interestAmount = round($loanAmount * $monthlyInterestRate, 2);
+                    $totalAmount = round($baseAmount + $interestAmount, 2);
+
+                    $tenureData[] = [
+                        'user_id' => $userId,
+                        'loan_request_id' => $requestId,
+                        'payment_date' => $paymentDate,
+                        'base_amount' => $baseAmount,
+                        'interest_amount' => $interestAmount,
+                        'total_amount' => $totalAmount,
+                        'payment_status' => 'pending',
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                    ];
+                }
+
+                if (!empty($tenureData)) {
+
+                    $this->loanTenure->insertBatch($tenureData);
+                
+                }
+            }
+
             $this->session->set_flashdata('success_message', 'Loan Request Updated Successfully');
-            redirect(base_url().$this->pageUrl);
+
         } else {
+            
             $this->session->set_flashdata('error_message', 'Something went wrong');
-            redirect(base_url().$this->pageUrl);
+        
         }
+
+        redirect(base_url() . $this->pageUrl);
     }
+
     
 
     public function delete($requestId){

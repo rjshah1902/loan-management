@@ -21,14 +21,14 @@
                                     <th>Amount</th>
                                     <th>Requested At</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $count = 1;
                                 if(count($loanRequest) > 0){
                                     foreach($loanRequest as $lr){
-                                        $editUrl = base_url('admin/loan-request/edit/'.$lr->id);
-                                        $deleteUrl = base_url('admin/loan-request/delete/'.$lr->id);
+                                        $detailsUrl = base_url('user/request-details?request_id='.$lr->id);
                                         $statusColor = "bg-gradient-info";
                                         if($lr->request_status == 'approved'){
                                             $statusColor = "bg-gradient-success";
@@ -53,6 +53,11 @@
                                                 <span class="badge badge-sm <?= $statusColor; ?>">
                                                     <?= ucfirst($lr->request_status); ?>
                                                 </span>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                 <a href="<?= $detailsUrl; ?>" class="btn btn-info btn-sm text-white">
+                                                        View
+                                                    </a>
                                             </td>
                                         </tr>
                                     <?php } 

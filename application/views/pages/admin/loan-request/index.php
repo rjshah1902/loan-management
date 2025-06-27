@@ -78,12 +78,18 @@
                                                 </span>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="<?= $editUrl; ?>" class="btn btn-warning btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
-                                                <a href="javascript:void(0);" onclick="deleteData('<?= $deleteUrl; ?>')"  class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
-                                                    Delete
-                                                </a>
+                                                <?php if($lr->request_status == 'pending'){ ?>
+                                                    <a href="<?= $editUrl; ?>" class="btn btn-warning btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                    <a href="javascript:void(0);" onclick="deleteData('<?= $deleteUrl; ?>')"  class="btn btn-danger btn-sm text-white" data-toggle="tooltip" data-original-title="Edit user">
+                                                        Delete
+                                                    </a>
+                                                <?php } else{ ?>
+                                                    <a href="<?= $editUrl; ?>" class="btn btn-info btn-sm text-white">
+                                                        View
+                                                    </a>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                     <?php } 
